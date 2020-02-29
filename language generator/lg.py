@@ -1,3 +1,5 @@
+import sys
+
 # $ = empty word
 # In the file the 'variables' are in the folloing order
 # Non-terminals
@@ -12,9 +14,10 @@ production_rules = {}
 
 language_tree = []
 
-max_tree_level = 1
+grammar_file = sys.argv[1]
+max_tree_level = int(sys.argv[2])
 
-with open('grammar1.txt', 'r') as f:
+with open(grammar_file, 'r') as f:
     non_terminals = f.readline().strip().split(' ')
     terminals = f.readline().strip().split(' ')
     starting_point = f.readline()
@@ -49,10 +52,12 @@ def generate_words(ex, level):
         for i in range(0, len(ex)):
             if ex[i] in non_terminals:
                 for rule in production_rules[ex[i]]:
-                    if len(rule) % 2 == 0:
-                        new_expression = ex[:i] + rule + ex[(i-1+len(rule)):]
-                    else:
-                        new_expression = ex[:i] + rule + ex[(i+len(rule)):]
+                    # if len(rule) % 2 == 0:
+                    #     new_expression = ex[:i] + rule + ex[i+1:]
+                    # else:
+                    #     new_expression = ex[:i] + rule + ex[i+1:]
+                    #     print(new_expression,  len(new_expression), len(ex))
+                    new_expression = ex[:i] + rule + ex[i+1:]
                     res = generate_words(new_expression, level+1)
                     if res != None:
                         language_tree.append(res.strip())
@@ -61,7 +66,5 @@ def generate_words(ex, level):
 
 # Generate the words
 generate_words(starting_point, 0)
-
-# 
+ 
 print(language_tree)
-#language_tree = language_tree[:len(language_tree)-1]
