@@ -48,16 +48,27 @@ def generate_words(ex, level):
             return None
         return ex
 
+    # if found_non_terminal:
+    #     for i in range(0, len(ex)):
+    #         if ex[i] in non_terminals:
+    #             for rule in production_rules[ex[i]]:
+    #                 # if len(rule) % 2 == 0:
+    #                 #     new_expression = ex[:i] + rule + ex[i+1:]
+    #                 # else:
+    #                 #     new_expression = ex[:i] + rule + ex[i+1:]
+    #                 #     print(new_expression,  len(new_expression), len(ex))
+    #                 new_expression = ex[:i] + rule + ex[i+1:]
+    #                 res = generate_words(new_expression, level+1)
+    #                 if res != None:
+    #                     language_tree.append(res.strip())
+
     if found_non_terminal:
-        for i in range(0, len(ex)):
-            if ex[i] in non_terminals:
-                for rule in production_rules[ex[i]]:
-                    # if len(rule) % 2 == 0:
-                    #     new_expression = ex[:i] + rule + ex[i+1:]
-                    # else:
-                    #     new_expression = ex[:i] + rule + ex[i+1:]
-                    #     print(new_expression,  len(new_expression), len(ex))
-                    new_expression = ex[:i] + rule + ex[i+1:]
+        for nterm in non_terminals:
+            if nterm in ex:
+                for rule in production_rules[nterm]:
+                    # finding the index of the non_terminal in the 
+                    index = ex.find(nterm)
+                    new_expression = ex[:index] + rule + ex[(index+len(nterm)):]
                     res = generate_words(new_expression, level+1)
                     if res != None:
                         language_tree.append(res.strip())

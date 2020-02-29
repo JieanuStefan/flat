@@ -1,0 +1,4 @@
+S A B
+a b c
+S
+S abc aAbc,Ab ba,Ac Bbcc,bB Bb,aB aaA aa
