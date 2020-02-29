@@ -12,7 +12,7 @@ production_rules = {}
 
 language_tree = []
 
-max_tree_level = 3
+max_tree_level = 1
 
 with open('grammar1.txt', 'r') as f:
     non_terminals = f.readline().strip().split(' ')
